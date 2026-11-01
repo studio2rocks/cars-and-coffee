@@ -73,10 +73,18 @@ export const INITIAL_GARAGE_CARS: GarageCar[] = [
 
 interface MyGarageProps {
   onSelectCarForMeet: (car: GarageCar) => void;
+  cars?: GarageCar[];
+  onUpdateCars?: (cars: GarageCar[]) => void;
+  isAdmin?: boolean;
 }
 
-export const MyGarage: React.FC<MyGarageProps> = ({ onSelectCarForMeet }) => {
-  const [garageCars, setGarageCars] = useState<GarageCar[]>(() => {
+export const MyGarage: React.FC<MyGarageProps> = ({
+  onSelectCarForMeet,
+  cars,
+  onUpdateCars,
+  isAdmin = false,
+}) => {
+  const [internalCars, setInternalCars] = useState<GarageCar[]>(() => {
     try {
       const saved = localStorage.getItem('cars_and_coffee_garage_cars_v1');
       if (saved) return JSON.parse(saved);
@@ -85,6 +93,16 @@ export const MyGarage: React.FC<MyGarageProps> = ({ onSelectCarForMeet }) => {
     }
     return INITIAL_GARAGE_CARS;
   });
+
+  const garageCars = cars || internalCars;
+  const setGarageCars = (updater: React.SetStateAction<GarageCar[]>) => {
+    if (onUpdateCars) {
+      const next = typeof updater === 'function' ? updater(garageCars) : updater;
+      onUpdateCars(next);
+    } else {
+      setInternalCars(updater);
+    }
+  };
 
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [year, setYear] = useState<number>(1995);

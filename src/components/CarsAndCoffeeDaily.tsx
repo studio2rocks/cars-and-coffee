@@ -27,6 +27,8 @@ interface CarsAndCoffeeDailyProps {
   onEditEntry: (entry: CarsAndCoffeeEntry) => void;
   onDeleteEntry: (id: string) => void;
   onNavigateToLeaderboard: () => void;
+  isAdmin?: boolean;
+  onNavigateToAdmin?: () => void;
 }
 
 export const CarsAndCoffeeDaily: React.FC<CarsAndCoffeeDailyProps> = ({
@@ -35,6 +37,8 @@ export const CarsAndCoffeeDaily: React.FC<CarsAndCoffeeDailyProps> = ({
   onEditEntry,
   onDeleteEntry,
   onNavigateToLeaderboard,
+  isAdmin = false,
+  onNavigateToAdmin,
 }) => {
   const todayStr = new Date().toISOString().split('T')[0];
   const [selectedDate, setSelectedDate] = useState<string>(todayStr);
@@ -86,6 +90,27 @@ export const CarsAndCoffeeDaily: React.FC<CarsAndCoffeeDailyProps> = ({
 
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
+      {/* Admin Mode Active Banner */}
+      {isAdmin && (
+        <div className="bg-gradient-to-r from-amber-500/15 via-amber-500/10 to-amber-500/5 border border-amber-500/30 rounded-2xl p-3.5 sm:px-5 flex items-center justify-between gap-3 text-xs text-amber-950 dark:text-amber-200">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse" />
+            <span className="font-bold">Admin Privileges Active:</span>
+            <span className="hidden sm:inline text-amber-900/80 dark:text-amber-300/80">
+              Full permissions enabled to modify runs, download database backups, and sync to cloud hosts.
+            </span>
+          </div>
+          {onNavigateToAdmin && (
+            <button
+              onClick={onNavigateToAdmin}
+              className="px-3 py-1 bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold rounded-lg text-[11px] shadow-sm transition-all whitespace-nowrap active:scale-95"
+            >
+              Open DB & Cloud Hub →
+            </button>
+          )}
+        </div>
+      )}
+
       {/* Date Navigation & Controls */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-stone-900 p-4 sm:p-5 rounded-3xl border border-stone-200 dark:border-stone-800 shadow-sm">
         <div className="flex items-center gap-3">
