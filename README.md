@@ -80,7 +80,7 @@ Both car and barista photos are processed on-device with HTML5 Canvas to burn au
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/studio2rocks/crema-and-barista.git
-   cd crema-and-barista
+   cd cars-and-coffee
    ```
 
 2. **Install dependencies**:
