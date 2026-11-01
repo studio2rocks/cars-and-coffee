@@ -1,0 +1,6 @@
+{
+  "name": "Cars & Coffee: Worldwide Paddock & Coffee Tracker",
+  "description": "Log your cars and coffee runs: track car year, maker, model, mods, car photos, cups consumed, coffee types, and barista photos with stamped verification. Compete on the worldwide leaderboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
